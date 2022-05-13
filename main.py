@@ -10,11 +10,7 @@ app.config['MYSQL_PASSWORD']='1234'
 app.config['MYSQL_DB']='Login'
 app.config['MYSQL_CURSORCLASS']='DictCursor'
 mysql = MySQL(app)
-'''connection = mysql.connector.connect(
-                                    host='localhost',
-                                    user='root',
-                                    password='24090110',
-                                    database='Login')'''
+
 @app.route('/')
 @app.route('/login', methods=['GET', 'POST'])
 def login():
