@@ -1,9 +1,11 @@
-from flask import Flask, flash, redirect,url_for, render_template,request,session
-from functools import wraps
+from flask import Flask, flash, render_template,request,session
+#from functools import wraps
 from flask_mysqldb import MySQL
 import os
 
 app = Flask(__name__)
+
+#Segurar o CTRL e clicar no 'config' para ver a função
 app.config['MYSQL_HOST']='localhost'
 app.config['MYSQL_USER']='adm'
 app.config['MYSQL_PASSWORD']='1234'
@@ -28,11 +30,6 @@ def login():
                     return render_template('index.html')
                 else:
                     flash("Invalid Login. Try Again", 'danger')
-
-                """if username == 'admin' and password == 'admin123':
-                        return render_template('index.html')
-                else:
-                        msg= "Incorrect username / password!"""    
         return render_template('login.html')
 
 if __name__ == "__main__":
