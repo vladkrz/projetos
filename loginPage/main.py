@@ -85,11 +85,14 @@ def login():
 @app.route('/logout')
 def logout(): #	Criando uma lógica para a 
 	#	Remove a chave 'username' criada em session['username'] que armazena o usuário do sistema
-	# 	None para se caso não ache
+	# 	None para caso não ache
 	session.pop('username',None)
-	#	Redireciona após remover o usuário da sessão para a página de login
-	#	O redirecionamento é feito com redirect e url_for, onde ao inves de passarmos /login
-	#	passamos apenas 'login' para ser redirecionado para essa URL
+	'''
+	Redireciona após remover o usuário da sessão para a página de login
+	O redirecionamento é feito com redirect e url_for, onde ao inves de passarmos /login
+	passamos apenas 'login' para ser redirecionado para essa URL
+	O url_for cria a URL e o redirect redireciona
+	'''
 	return redirect(url_for('login'))
 	
 #	Verifica se a aplicação está sendo executado no mesmo arquivo(atual)	
@@ -101,9 +104,14 @@ if __name__ == '__main__':
 	ou uma string simples
 	'''
 	app.secret_key= os.urandom(12)
-	#	Inicia o servidor web de desenvolvimento
-	#	Para uma implantação de produção, use um servidor da Web pronto para produção,
-	#	como gunicorn ou uWSGI .
+	'''
+	Inicia o servidor web de desenvolvimento
+	Para uma implantação de produção, use um servidor da Web pronto para produção,
+	como gunicorn ou uWSGI .
+
+	O servidor de desenvolvimento e a depuração deve permanecer desativada em 
+	ambiente de produção, pois permite código arbitrário python a partir do navegador
+	'''
 	app.run(debug=True)
 	
 
