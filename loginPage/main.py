@@ -84,7 +84,7 @@ def login():
 #	Criando uma rota para logout com a função logout
 @app.route('/logout')
 def logout(): #	Criando uma lógica para a 
-	#	Remove a chave session['username'] que armazena o usuário do sistema
+	#	Remove a chave 'username' criada em session['username'] que armazena o usuário do sistema
 	# 	None para se caso não ache
 	session.pop('username',None)
 	#	Redireciona após remover o usuário da sessão para a página de login
