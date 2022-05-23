@@ -31,7 +31,7 @@ mysql = MySQL(app)
 def login():
 	#	Variável de erro para retorno de mensagem de Login Correto ou de Login Incorreto
 	msg = ''
-	#	Verifica o método http da página(GET ou POST) emitido pelo sistema
+	#	Verifica o método http da página(GET ou POST) emitido pela requisição
 	if request.method == 'POST':
 			#	Recebe os valores passados no form de usuário e senha
 			username = request.form['username']
