@@ -3,6 +3,9 @@
     <head>
         <title>{% block title %} {% endblock %}</title>
         <style>
+            .title-info{
+                text-align:left;
+            }
             .menu{
                 text-align:right;
             }
@@ -14,7 +17,7 @@
         </style>
     </head>
 <body>
-    <p style="font-size: 20px;text-align: left;">Usuário logado atualmente: {{ session['username'].title() }}</p>
+    <p class="title-info"style="font-size: 20px;text-align: left;">Usuário logado atualmente: {{ session['username'].title() }}</p>
     <div class="menu">
          
             <ul>
@@ -24,8 +27,9 @@
                 <li>Notas</li>
             </ul>
             <a href="{{ url_for('logout') }}" style="font-size: 25px;">Logout</a>
-            <h1>{% block greetings %} {% endblock %}</h1>
+            
     </div>
+    <h1 class="title-info">{% block greetings %} {% endblock %}</h1>
     <center>
         <hr>
     </center>
@@ -42,7 +46,7 @@
     <div class="footer">
         <footer style="position: fixed; left:2; right: 2; width: 95%; bottom: 0;">
             <center>
-                This webpage is only accessible behind a User Web Login System written in Python
+                Este sistema está sendo desenvolvido por Allan(Joxbin)
             </center>
         </footer>
     </div>
