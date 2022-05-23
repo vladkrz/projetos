@@ -1,25 +1,33 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>{% block titulo %} {% endblock %}</title>
+        <title>{% block title %} {% endblock %}</title>
+        <style>
+            .menu{
+                text-align:right;
+            }
+            li{
+                display: inline-block;
+                font-size: 25px;
+            }
+
+        </style>
     </head>
 <body>
-    <div class="welcome">
-        <center>
-            <h1>
-                <font size="13" color="black">
-                   {% block saudacoes %} {% endblock %} {{ session['username'].title() }}!
-                </font>
-                
-            </h1>
-        </center>
+    <p style="font-size: 20px;text-align: left;">Usuário logado atualmente: {{ session['username'].title() }}</p>
+    <div class="menu">
+         
+            <ul>
+                <p style="font-size: 25px;font-weight: bold;">Cadastro</p>
+                <li>Aluno</li>
+                <li>Matéria</li>
+                <li>Notas</li>
+            </ul>
+            <a href="{{ url_for('logout') }}" style="font-size: 25px;">Logout</a>
+            <h1>{% block greetings %} {% endblock %}</h1>
     </div>
     <center>
         <hr>
-    </center>
-
-    <center>
-        <a href="{{ url_for('logout') }}">{% block logout%} {% endblock %}</a>
     </center>
     <div class="breaker">
         <br />
