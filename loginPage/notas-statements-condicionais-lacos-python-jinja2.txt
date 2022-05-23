@@ -1,0 +1,82 @@
+
+    Notas sobre o statements {{ }} e {% %}
+    O {{ }} permite mostrar o conteúdo de variáveis sejam estas
+    variaveis criadas em código python no arquivo python ou por código python no html
+
+    O {% %} permite realizarmos operações de condicionais, laços e definir blocos para herança
+    e substituição de conteúdos:
+    Bloco if sem elif e else
+        {% if x == 1 %}
+        {% endif %} <- fim do bloco condicional
+    Bloco if com else
+        {% if x == 1 %}
+
+        {% else %}
+
+        {% endif %}
+    Bloco if com elif e else
+        {% if x == 1 %}
+
+        {% elif %}
+
+        {% else %}
+
+        {% endif %}
+    Bloco for 
+        {% for x in range(1,10) %}
+            {{x}}
+        {% endfor %}
+    
+    #   A herança usa os seguintes comandos para as operações de renderização
+    #   Vamos nomear o arquivo como "base.html" já que ele servirá de base 
+    #   para os arquivos filhos herdarem conteudos de "base.html"
+    <html>
+        <head>
+            <title>{% block title %}{% endblock %}</title>
+        </head>
+        <body>
+            {% block content %}
+
+            {% endblock %}
+        </body>
+    </html>
+    #   Vamos nomear este como index.html já que ele irá ser renderizado no nosso 
+    #   código python através do render_template e herderá o conteúdo de "base.html"
+    #   O arquivo "base.html" é necessário estar no mesmo diretório que o arquivo filho
+    #   ou você pode passar o nivel de diretório caso ele esteja um nivel acioma 
+    #   "base/base.html"
+
+    #   O {% extends %} indica que estaremos estendendo o base.html para index.html
+    #   O que faz com quem index pegue o conteúdo de base.html ao ser renderizado no python
+    #   Quando o "index.html" for renderizado as intruções definidas no "index.html" e o corpo
+    #   html de "base.html" com as instruções substituidas (os statements {% block %}) 
+    #   serão mostradas no nosso site
+
+    {% extends "base.html" %}
+    #   O "title" após o block é apenas para fim de semântica já que foi colocado dentro
+    #   da tag <title> </title>, mas pode-se colocar qualquer outro nome, assim como
+    #   o   "content"
+
+    {% block title}Login{% endblock %}
+    {% block content}
+        <h1> Olá meu amigo </h1>
+        <h2> Fique à vontade e faça seu login </h2>
+    {% endblock %}
+    
+    
+    #   Usando laço no html
+     <html>
+        <head>
+            <title>{% block title %}{% endblock %}</title>
+        </head>
+        <body>
+            {% block content %}
+
+            {% endblock %}
+            #   Irá mostrar de 1 até 10 na nossa página
+            #   Sem as chaves duplas, iria aparecer o "x" 10 vezes
+            {% for x in range(1,10) %}
+                <p> {{x}} </p>
+            {% endfor %}
+        </body>
+    </html>

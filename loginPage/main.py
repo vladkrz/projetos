@@ -74,7 +74,7 @@ def login():
 				reservados para dados dinamicos. Esses dados dinamicos são manipulados pelo
 				Jinja2. O documento final é produzido e renderizado pelo jinja2.
 				'''
-				#	render_template renderiza o arquivo html usando a modelagem Jinja2
+				#	render_template renderiza/carrega  o arquivo html usando a modelagem Jinja2
 				return render_template('index.html', msg=msg)
 			else:
 				msg='Login inválido. Seu usuário ou senha estão incorretos. Tente novamente!'
@@ -112,7 +112,7 @@ if __name__ == '__main__':
 	O servidor de desenvolvimento e a depuração deve permanecer desativada em 
 	ambiente de produção, pois permite código arbitrário python a partir do navegador
 	'''
-	app.run(debug=True)
+	app.run(debug=True,host='0.0.0.0')
 	
 
     
