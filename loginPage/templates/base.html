@@ -13,25 +13,29 @@
                 display: inline-block;
                 font-size: 25px;
             }
-
         </style>
     </head>
 <body>
     <p class="title-info"style="font-size: 20px;text-align: left;">Usuário logado atualmente: {{ session['username'].title() }}</p>
     <div class="menu">
-         
+            <a href="{{ url_for('index') }}" style="font-size: 25px">Inicio</a>
             <ul>
-                <p style="font-size: 25px;font-weight: bold;">Cadastro</p>
-                <li>Aluno</li>
-                <li>Matéria</li>
-                <li>Notas</li>
+                <h2>Cadastro </h2>
+                <li><a href="{{ url_for('aluno') }}">Aluno</a></li>
+                <li><a href="#">Matéria</a></li>
+                <li><a href="#">Notas</a></li>
             </ul>
             <a href="{{ url_for('logout') }}" style="font-size: 25px;">Logout</a>
             
     </div>
-    <h1 class="title-info">{% block greetings %} {% endblock %}</h1>
+    <div class="title-info">{% block greetings %} {% endblock %}</div>
+    <div class="title-aluno">{% block title_aluno %} {% endblock %}</div>
     <center>
         <hr>
+    </center>
+    <center>
+        <div class="title-register">{% block register_aluno %} {% endblock %}</div>
+        <div class="form-register">{% block form_register %} {% endblock %}</div>
     </center>
     <div class="breaker">
         <br />

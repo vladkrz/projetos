@@ -80,6 +80,14 @@ def login():
 				msg='Login inválido. Seu usuário ou senha estão incorretos. Tente novamente!'
 				
 	return render_template('login.html',msg=msg)
+@app.route('/inicio')
+def index():
+	return render_template('index.html')
+
+@app.route('/aluno')
+def aluno():
+	
+	return render_template('aluno.html')
 
 #	Criando uma rota para logout com a função logout
 @app.route('/logout')
@@ -89,9 +97,10 @@ def logout(): #	Criando uma lógica para a
 	session.pop('username',None)
 	'''
 	Redireciona após remover o usuário da sessão para a página de login
-	O redirecionamento é feito com redirect e url_for, onde ao inves de passarmos /login
-	passamos apenas 'login' para ser redirecionado para essa URL
-	O url_for cria a URL e o redirect redireciona
+	O redirecionamento é feito com redirect e url_for, onde ao inves de passarmos a rota,
+	a string de rota /login	passamos apenas 'login' que é a função da rota
+	para ser redirecionado para essa URL
+	
 	'''
 	return redirect(url_for('login'))
 	

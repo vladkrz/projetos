@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title_aluno %} 
+    <h2>Gerenciamento de Alunos</h2> 
+{% endblock %}
+{% block register_aluno %} 
+    <h2>Cadastrar um Aluno</h2>
+{% endblock %}
+{% block form_register %}
+    <form action="{{ url_for('aluno') }}">
+        <label><input type="text" placeholder="Código do Aluno" name="codigo_aluno"></label>
+        <label><input type="text" placeholder="Nome do Aluno"   name="nome_aluno"></label>
+        <label><input type="text" placeholder="Data de Nascimento" name="data_nascimento"></label>
+        <label><input type="text" placeholder="Série do Aluno" name="serie_aluno"></label>
+    </form>
+{% endblock %}
