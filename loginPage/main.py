@@ -75,6 +75,10 @@ def login():
 				Jinja2. O documento final é produzido e renderizado pelo jinja2.
 				'''
 				#	render_template renderiza/carrega  o arquivo html usando a modelagem Jinja2
+				#	A variável msg está recebendo a variável local da função msg 
+				# 	e a variável msg no render_template é uma variável que vai ser usada para preencher
+				# 	o campo que tenha o statements {{ msg }} com dados em algum
+				#	canto do código html que tenha os statements {{ msg }}
 				return render_template('index.html', msg=msg)
 			else:
 				msg='Login inválido. Seu usuário ou senha estão incorretos. Tente novamente!'
@@ -84,7 +88,7 @@ def login():
 def index():
 	return render_template('index.html')
 
-@app.route('/aluno', methods=['GET', 'POST'])
+@app.route('/aluno', methods=['GET','POST'])
 def aluno():
 	msg_query = ''
 	if request.method == 'POST':
@@ -102,11 +106,45 @@ def aluno():
 
 		msg_query = 'Usuário cadastrado com sucesso!'
 
-	else:
-		msg_query = 'Problema ao cadastrar usuário. Tente novamente'
-
 	return render_template('aluno.html', msg_query=msg_query)
 
+@app.route('/materia', methods=['GET', 'POST'])
+def materia():
+	msg_query = ''
+	if request.method == "POST":
+		codigo_materia = request.form['codigo_materia']
+		nome_materia = request.form['nome_materia']
+		
+		cursor = mysql.connection.cursor()
+		sql_query = 'INSERT INTO Materia(codigo, materia) VALUES (%s, %s)'
+		dados_materia = (codigo_materia, nome_materia)
+
+		cursor.execute(sql_query, dados_materia)
+		mysql.connection.commit()
+
+		msg_query = 'Matéria cadastrada com sucesso'
+
+	return render_template('materia.html',msg_query=msg_query)
+
+@app.route('/notas', methods=['GET', 'POST'])
+def notas():
+	msg_query = ''
+	if request.method == 'POST':
+		bimestre_aluno = request.form['bimestre_aluno']
+		codigo_aluno = request.form['codigo_aluno']
+		codigo_materia = request.form['codigo_materia']
+		nota_aluno = request.form['nota_aluno']
+
+		sql_query = 'INSERT INTO Notas(bimestre,codigo_aluno,codigo_materia,nota) VALUES (%s, %s, %s, %s)'
+		dados_notas = (bimestre_aluno, codigo_aluno, codigo_materia, nota_aluno)
+		
+		cursor = mysql.connection.cursor()
+		cursor.execute(sql_query, dados_notas)
+		mysql.connection.commit()
+
+		msg_query = 'Nota cadastrada com sucesso!'
+
+	return render_template('notas.html', msg_query=msg_query)
 #	Criando uma rota para logout com a função logout
 @app.route('/logout')
 def logout(): #	Criando uma lógica para a 

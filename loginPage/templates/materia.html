@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title_painel_materia %}
+    <h2>Gerenciamento de Matérias</h2>
+{% endblock %}
+{% block title_register_materia %}
+    <h2> Cadastro de Matéria </h2>
+{% endblock %}
+{% block form_register_materia %}
+    <form action="{{ url_for('materia') }}" method="POST">
+        <label><input type="text" name="codigo_materia" placeholder="Código da Matéria"></label>
+        <label><input type="text" name="nome_materia" placeholder="Matéria"></label>
+        <label><input type="Submit" value="Cadastrar"></label>
+{% endblock %}

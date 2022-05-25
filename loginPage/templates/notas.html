@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title_painel_notas %} 
+    <h2>Gerenciamento de Notas </h2>
+{% endblock %}
+
+{% block title_register_notas %} 
+    <h2> Cadastro de Notas </h2>
+{% endblock %}
+
+{% block form_register_notas %}
+    <form action="{{ url_for('notas') }}" method="POST">
+        <label><input type="text" placeholder="Bimestre" name="bimestre_aluno"></label>
+        <label><input type="text" placeholder="Código do Aluno" name="codigo_aluno"></label>
+        <label><input type="text" placeholder="Código da Matéria" name="codigo_materia"></label>
+        <label><input type="text" placeholder="Nota do Aluno" name="nota_aluno"></label>
+        <label><input type="Submit" value="Cadastrar">
+{% endblock %}

@@ -3,6 +3,12 @@
     <head>
         <title>{% block title %} {% endblock %}</title>
         <style>
+            .msg-register-db{
+                text-color:red;
+            }
+            input {
+                text-align: center;
+            }
             .title-info{
                 text-align:left;
             }
@@ -20,23 +26,33 @@
     <div class="menu">
             <a href="{{ url_for('index') }}" style="font-size: 25px">Inicio</a>
             <ul>
-                <h2>Cadastro </h2>
+                <h2> Consulta </h2>
+               
+            </ul>
+            <ul>
+                <h2>Cadastro</h2>
                 <li><a href="{{ url_for('aluno') }}">Aluno</a></li>
-                <li><a href="#">Matéria</a></li>
-                <li><a href="#">Notas</a></li>
+                <li><a href="{{ url_for('materia') }}">Matéria</a></li>
+                <li><a href="{{ url_for('notas') }}">Notas</a></li>
             </ul>
             <a href="{{ url_for('logout') }}" style="font-size: 25px;">Logout</a>
             
     </div>
     <div class="title-info">{% block greetings %} {% endblock %}</div>
-    <div class="title-aluno">{% block title_aluno %} {% endblock %}</div>
+    <div class="title-aluno">{% block title_painel_aluno %} {% endblock %}</div>
+    <div class="title-materia">{% block title_painel_materia %} {% endblock %}</div>
+    <div class="title-notas">{% block title_painel_notas %} {% endblock %}</div>
     <center>
         <hr>
     </center>
     <center>
-        <div class="title-register">{% block register_aluno %} {% endblock %}</div>
-        <div class="msg-register"> {{ msg_query }}</div>
-        <div class="form-register">{% block form_register %} {% endblock %}</div>
+        <div class="title-register-materia">{% block title_register_materia %} {% endblock %}
+        <div class="title-register-aluno">{% block title_register_aluno %} {% endblock %}</div>
+        <div class="title-register-notas">{% block title_register_notas %} {% endblock %}</div>
+        <div class="msg-register-db"> {{ msg_query }}</div>
+        <div class="form-register-aluno">{% block form_register %} {% endblock %}</div>
+        <div class="form-register-materia">{% block form_register_materia %} {% endblock %}</div>
+        <div class="form-register-notas">{% block form_register_notas %} {% endblock %}</div>
     </center>
     <div class="breaker">
         <br />
