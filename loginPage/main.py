@@ -84,10 +84,28 @@ def login():
 def index():
 	return render_template('index.html')
 
-@app.route('/aluno')
+@app.route('/aluno', methods=['GET', 'POST'])
 def aluno():
-	
-	return render_template('aluno.html')
+	msg_query = ''
+	if request.method == 'POST':
+		codigo_aluno = request.form['codigo_aluno']
+		nome_aluno = request.form['nome_aluno']
+		nascimento_aluno = request.form['data_nascimento']
+		serie_aluno = request.form['serie_aluno']
+		dados_aluno = (codigo_aluno,nome_aluno,nascimento_aluno,serie_aluno)
+		
+		cursor = mysql.connection.cursor()
+		
+		sql_query = 'INSERT INTO Aluno(codigo, nome, nascimento, serie) VALUES (%s, %s, %s, %s)'
+		cursor.execute(sql_query, dados_aluno)
+		mysql.connection.commit()
+
+		msg_query = 'Usuário cadastrado com sucesso!'
+
+	else:
+		msg_query = 'Problema ao cadastrar usuário. Tente novamente'
+
+	return render_template('aluno.html', msg_query=msg_query)
 
 #	Criando uma rota para logout com a função logout
 @app.route('/logout')
