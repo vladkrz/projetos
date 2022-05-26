@@ -24,9 +24,12 @@ mysql = MySQL(app)
 #	Mapeando uma URL para vincular com função a ser renderizado
 #	Criando uma rota para raiz
 @app.route('/') 	
+
 #	Decorator junto com a função para definir  o comportamento lógico da página 
-#	Para a página de login, o methods lida com solicitação POST ou GET
+#	Para a página de login, o methods diz com quais solicitações essa rota irá
+#	trabalhar se é POST ou GET ou os dois
 #	Esta rota está vinculada a função login()
+
 @app.route('/login', methods=['GET', 'POST']) 
 def login():
 	#	Variável de erro para retorno de mensagem de Login Correto ou de Login Incorreto
@@ -39,16 +42,16 @@ def login():
 			#	Habilita o Flask a realizar operações SQL
 			cursor = mysql.connection.cursor()
 			'''
-			Executa a consulta/comando no nosso banco e verifica os dados passados 
-			no form se é igual ao do banco Login
-			Na interpolação de strings(username=%s) deve-se passar as variaveis entre 
-			parenteses(tupla)
+				Executa a consulta/comando no nosso banco e verifica os dados passados 
+				no form se é igual ao do banco Login
+				Na interpolação de strings(username=%s) deve-se passar as variaveis entre 
+				parenteses(tupla)
 			'''
 			cursor.execute('SELECT * FROM Login WHERE username=%s AND password=%s',(username, password))
 			'''
-			Armazena em account os dados da consulta executado pelo execute() 
-			que retornar do banco para a variável cursor.fetchone(que utiliza o 
-			método mysql.connection.cursor())
+				Armazena em account os dados da consulta executado pelo execute() 
+				que retornar do banco para a variável cursor.fetchone(que utiliza o 
+				método mysql.connection.cursor())
 			'''
 			account = cursor.fetchone() #	fetchone busca uma linha por vez na consulta
 
@@ -64,21 +67,23 @@ def login():
 				session['username'] = account['username']
 				msg = 'Logado com sucesso!'
 				'''
-				A variável na função render_template o torna acessível a colocarmos
-				no template html, no caso o index.html
-				É importante que os templates html estejam na pasta templates e no
-				mesmo diretório do arquivo principal da aplicação python 
-				já que o render_template busca os templates na pasta templates
-				
-				Templates ou modelos são arquivos que contem dados estáticos e espaços
-				reservados para dados dinamicos. Esses dados dinamicos são manipulados pelo
-				Jinja2. O documento final é produzido e renderizado pelo jinja2.
+					A variável na função render_template o torna acessível a colocarmos
+					no template html, no caso o index.html
+					É importante que os templates html estejam na pasta templates e no
+					mesmo diretório do arquivo principal da aplicação python 
+					já que o render_template busca os templates na pasta templates
+					
+					Templates ou modelos são arquivos que contem dados estáticos e espaços
+					reservados para dados dinamicos. Esses dados dinamicos são manipulados pelo
+					Jinja2. O documento final é produzido e renderizado pelo jinja2.
 				'''
-				#	render_template renderiza/carrega  o arquivo html usando a modelagem Jinja2
-				#	A variável msg está recebendo a variável local da função msg 
-				# 	e a variável msg no render_template é uma variável que vai ser usada para preencher
-				# 	o campo que tenha o statements {{ msg }} com dados em algum
-				#	canto do código html que tenha os statements {{ msg }}
+				'''	
+					render_template renderiza/carrega  o arquivo html usando a modelagem Jinja2
+					A variável msg está recebendo a variável local da função msg 
+					e a variável msg no render_template é uma variável que vai ser usada para preencher
+					o campo que tenha o statements {{ msg }} com dados em algum
+					canto do código html que tenha os statements {{ msg }}
+				'''
 				return render_template('index.html', msg=msg)
 			else:
 				msg='Login inválido. Seu usuário ou senha estão incorretos. Tente novamente!'
