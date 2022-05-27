@@ -93,6 +93,22 @@ def login():
 def index():
 	return render_template('index.html')
 
+@app.route('/consulta', methods=['GET','POST'])
+def consulta():
+	msg_query = ''
+	consulta_db = ''
+	if request.method == 'POST':
+		botao_form = request.form['opcao']
+		cursor = mysql.connection.cursor()
+		cursor.execute('SELECT * FROM Aluno;')
+		consulta_db = cursor.fetchall()
+
+		if botao_form:
+			msg_query = 'Consulta realizada com sucesso!'
+		else:
+			msg_query = 'Aconteceu algum erro na consulta!'
+	return render_template('consulta.html',msg_query=msg_query,consulta_db=consulta_db)
+
 @app.route('/aluno', methods=['GET','POST'])
 def aluno():
 	msg_query = ''

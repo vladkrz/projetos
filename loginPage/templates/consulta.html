@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title_painel_consulta %}
+    <h2> Painel de Consulta </h2>
+{% endblock%}
+
+{% block title_consulta %}
+    <h2> Consulta por: </h2>
+{% endblock%}
+
+{% block form_consulta_aluno %}
+    <form method="POST">
+        <label><input type="radio" name="opcao" value="consulta_codigo">Codigo</label>
+        <label><input type="radio" name="opcao" value="consulta_nome">Nome</label>
+        <label><input type="Submit" value="Consultar"></label>
+    </form>
+{% endblock%}
+
+{% block table_consulta %}		
+    
+    <table style="width: 100%; text-align:center;">
+        <tr>
+            <th>Código</th>
+            <th>Nome </th>
+            <th>Data de Nascimento</th>
+            <th>Série</th>
+        </tr>
+        {% for chave in consulta_db %}
+        <tr>
+            <td>{{chave['codigo']}}</td>
+            <td>{{chave['nome']}}</td>
+            <td>{{chave['nascimento']}}</td>
+            <td>{{chave['serie']}}</td>     
+        </tr>
+        {% endfor %}
+   
+    </table>
+    
+
+{% endblock %}
