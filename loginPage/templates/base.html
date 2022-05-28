@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <!--Pesquisar como configurar um link css para flask -->
         <title>{% block title %} {% endblock %}</title>
         <style>
             .msg-register-db{
@@ -66,7 +67,9 @@
         <div class="form-register-notas">{% block form_register_notas %} {% endblock %}</div>
         <br />
         <br />
-        <div class="table-consulta">{% block table_consulta %} {% endblock %}</div>
+        {% if consulta_db %}
+            <div class="table-consulta">{% block table_consulta %} {% endblock %}</div>
+        {% endif %}        
     </center>
     <div class="breaker">
         <br />
