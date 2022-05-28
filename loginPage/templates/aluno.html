@@ -5,7 +5,25 @@
 {% block title_register_aluno %} 
     <h2>Cadastro de Aluno</h2>
 {% endblock %}
-
+{% block checagem_input_cadastro %}
+    <br>
+    <hr>
+    <h2>Usuário encontrado:</h2>
+    <table style="width: 100%;">
+        <tr>
+            <th>Código</th>
+            <th>Nome</th>
+            <th>Data de Nascimento</th>
+            <th>Série</th>
+        </tr>
+        <tr>
+            <td>{{checa_input_cadastro['codigo']}}</td>
+            <td>{{checa_input_cadastro['nome']}}</td>
+            <td>{{checa_input_cadastro['nascimento']}}</td>
+            <td>{{checa_input_cadastro['serie']}}</td>
+        </tr>
+    </table>
+{% endblock %}
 {% block form_register %}
     <form action="{{ url_for('aluno') }}" method="POST">
         <label><input type="text" placeholder="Código do Aluno" name="codigo_aluno"></label>

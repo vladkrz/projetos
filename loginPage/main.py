@@ -100,11 +100,18 @@ def consulta():
 	if request.method == 'POST':
 		botao_form = request.form['opcao']
 		cursor = mysql.connection.cursor()
-		cursor.execute('SELECT * FROM Aluno;')
-		consulta_db = cursor.fetchall()
+		
 
-		if botao_form:
+		if botao_form == 'consulta_codigo':
+			cursor.execute('SELECT * FROM Aluno ORDER BY codigo;')
+			consulta_db = cursor.fetchall()
 			msg_query = 'Consulta realizada com sucesso!'
+		
+		elif botao_form == 'consulta_nome':
+			cursor.execute('SELECT * FROM Aluno ORDER BY nome;')
+			consulta_db = cursor.fetchall()
+			msg_query = 'Consulta realizada com sucesso!'
+		
 		else:
 			msg_query = 'Aconteceu algum erro na consulta!'
 	return render_template('consulta.html',msg_query=msg_query,consulta_db=consulta_db)
@@ -112,22 +119,26 @@ def consulta():
 @app.route('/aluno', methods=['GET','POST'])
 def aluno():
 	msg_query = ''
+	checa_input_cadastro = ''
 	if request.method == 'POST':
 		codigo_aluno = request.form['codigo_aluno']
 		nome_aluno = request.form['nome_aluno']
 		nascimento_aluno = request.form['data_nascimento']
 		serie_aluno = request.form['serie_aluno']
 		dados_aluno = (codigo_aluno,nome_aluno,nascimento_aluno,serie_aluno)
-		
-		cursor = mysql.connection.cursor()
-		
 		sql_query = 'INSERT INTO Aluno(codigo, nome, nascimento, serie) VALUES (%s, %s, %s, %s)'
-		cursor.execute(sql_query, dados_aluno)
-		mysql.connection.commit()
+		cursor = mysql.connection.cursor()
 
-		msg_query = 'Usuário cadastrado com sucesso!'
+		if codigo_aluno == '3':
+			cursor.execute('SELECT codigo,nome,nascimento,serie FROM Aluno WHERE codigo=%s;', (codigo_aluno))
+			checa_input_cadastro = cursor.fetchone()
+			msg_query = 'Esse código já foi cadastrado!'
+		else:
+			cursor.execute(sql_query, dados_aluno)
+			mysql.connection.commit()
+			msg_query = 'Usuário cadastrado com sucesso!'
 
-	return render_template('aluno.html', msg_query=msg_query)
+	return render_template('aluno.html', msg_query=msg_query,checa_input_cadastro=checa_input_cadastro)
 
 @app.route('/materia', methods=['GET', 'POST'])
 def materia():
