@@ -1,0 +1,21 @@
+.msg-register-db{
+    color:red;
+    font-weight: bold;
+}
+input {
+    text-align: center;
+}
+.title-info{
+    text-align:left;
+}
+.menu{
+    text-align:right;
+}
+li{
+    display: inline-block;
+    font-size: 25px;
+}
+table, th, td {
+    border: 1px solid black;
+    text-align: center;
+}

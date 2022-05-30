@@ -14,12 +14,32 @@
             .title-info{
                 text-align:left;
             }
-            .menu{
-                text-align:right;
+            ul{
+                list-style-type: none;
+                margin:0;
+                padding: 0;
+                overflow: hidden;
+                background-color: rgb(60, 120, 233);
+                font-family: Arial, Helvetica, sans-serif;
             }
             li{
-                display: inline-block;
-                font-size: 25px;
+                float:left;
+            }
+            li a{
+                display: block;
+                text-decoration: none;
+                color:white;
+                text-align: center;
+                padding: 14px 16px;
+            }
+            ul li span{
+                display: block;
+                color:white;
+
+                padding: 14px 16px;
+            }
+            li a:hover{
+                background-color: black;
             }
             table, th, td {
                 border: 1px solid black;
@@ -28,22 +48,25 @@
         </style>
     </head>
 <body>
-    <p class="title-info"style="font-size: 20px;text-align: left;">Usuário logado atualmente: {{ session['username'].title() }}</p>
-    <div class="menu">
-            <a href="{{ url_for('index') }}" style="font-size: 25px">Inicio</a>
+    
+    <navbar>
+            
             <ul>
-                <h2> Consulta </h2>
-                <li><a href="{{ url_for('consulta') }}">Consultar Banco</a></li>
-            </ul>
-            <ul>
-                <h2>Cadastro</h2>
-                <li><a href="{{ url_for('aluno') }}">Aluno</a></li>
+                <li><a href="{{ url_for('index') }}">Inicio</a></li>
+                <li><a href="{{ url_for('consulta') }}">Consultar</a></li>
+                <li><a href="{{ url_for('aluno') }}"> Aluno</a></li>
                 <li><a href="{{ url_for('materia') }}">Matéria</a></li>
                 <li><a href="{{ url_for('notas') }}">Notas</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                <li style="float: right;">
+                    <span>
+                        Usuário logado atualmente: {{ session['username'] }}   
+                    </span>
+                </li>
             </ul>
-            <a href="{{ url_for('logout') }}" style="font-size: 25px;">Logout</a>
-            
-    </div>
+    </navbar>
+    
+           
     <div class="title-consulta">{% block title_painel_consulta %} {% endblock%}</div>
     <div class="title-info">{% block title_painel_index %} {% endblock %}</div>
     <div class="title-aluno">{% block title_painel_aluno %} {% endblock %}</div>
