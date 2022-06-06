@@ -2,8 +2,10 @@ from flask import Flask, render_template,request,session,url_for,redirect
 #from functools import wraps
 from flask_mysqldb import MySQL
 import os
-#Cria uma instância/aplicativo da classe Flask com o nome atual do arquivo
-app = Flask(__name__)
+from datetime import datetime
+#	Cria uma instância/aplicativo da classe Flask com o nome atual do arquivo
+#	Adicionamos o diretório da pasta static com static_url_path para scripts JS, CSS e etc	
+app = Flask(__name__,static_url_path='/static')
 
 #Configura uma conexão com o MySQL
 #Conexão local
@@ -19,7 +21,6 @@ app.config['MYSQL_DB']='Login'
 app.config['MYSQL_CURSORCLASS']='DictCursor'
 #Inicializa/instancia o MySQL
 mysql = MySQL(app)
-
 
 #	Mapeando uma URL para vincular com função a ser renderizado
 #	Criando uma rota para raiz
@@ -65,7 +66,7 @@ def login():
 				onde a chave username recebe a variável username(allan)
 				'''
 				session['username'] = account['username']
-				msg = 'Logado com sucesso!'
+				
 				'''
 					A variável na função render_template o torna acessível a colocarmos
 					no template html, no caso o index.html
@@ -84,14 +85,16 @@ def login():
 					o campo que tenha o statements {{ msg }} com dados em algum
 					canto do código html que tenha os statements {{ msg }}
 				'''
-				return render_template('index.html', msg=msg)
+				return redirect(url_for('inicio'))
 			else:
-				msg='Login inválido. Seu usuário ou senha estão incorretos. Tente novamente!'
+				msg='Login inválido!\nSeu usuário ou senha estão incorretos.'
 				
 	return render_template('login.html',msg=msg)
+
+
 @app.route('/inicio')
-def index():
-	return render_template('index.html')
+def inicio():
+	return render_template('index.html',sistemaHorario=datetime.now().strftime('%H:%M, %d/%m/%Y |'))
 
 @app.route('/consulta', methods=['GET','POST'])
 def consulta():
@@ -114,7 +117,7 @@ def consulta():
 		
 		else:
 			msg_query = 'Aconteceu algum erro na consulta!'
-	return render_template('consulta.html',msg_query=msg_query,consulta_db=consulta_db)
+	return render_template('consulta.html',msg_query=msg_query,consulta_db=consulta_db,sistemaHorario=datetime.now().strftime('%H:%M, %d/%m/%Y |'))
 
 @app.route('/aluno', methods=['GET','POST'])
 def aluno():
@@ -138,7 +141,7 @@ def aluno():
 			mysql.connection.commit()
 			msg_query = 'Usuário cadastrado com sucesso!'
 
-	return render_template('aluno.html', msg_query=msg_query,checa_input_cadastro=checa_input_cadastro)
+	return render_template('aluno.html', msg_query=msg_query,checa_input_cadastro=checa_input_cadastro,sistemaHorario=datetime.now().strftime('%H:%M, %d/%m/%Y |'))
 
 @app.route('/materia', methods=['GET', 'POST'])
 def materia():
@@ -156,7 +159,7 @@ def materia():
 
 		msg_query = 'Matéria cadastrada com sucesso'
 
-	return render_template('materia.html',msg_query=msg_query)
+	return render_template('materia.html',msg_query=msg_query,sistemaHorario=datetime.now().strftime('%H:%M, %d/%m/%Y |'))
 
 @app.route('/notas', methods=['GET', 'POST'])
 def notas():
@@ -176,10 +179,13 @@ def notas():
 
 		msg_query = 'Nota cadastrada com sucesso!'
 
-	return render_template('notas.html', msg_query=msg_query)
+	return render_template('notas.html', msg_query=msg_query,sistemaHorario=datetime.now().strftime('%H:%M, %d/%m/%Y |'))
 #	Criando uma rota para logout com a função logout
 @app.route('/logout')
 def logout(): #	Criando uma lógica para a 
+	
+	#	Mudar a flag de logado para Falso
+	session['logged_in'] = False
 	#	Remove a chave 'username' criada em session['username'] que armazena o usuário do sistema
 	# 	None para caso não ache
 	session.pop('username',None)
@@ -191,7 +197,7 @@ def logout(): #	Criando uma lógica para a
 	
 	'''
 	return redirect(url_for('login'))
-	
+
 #	Verifica se a aplicação está sendo executado no mesmo arquivo(atual)	
 if __name__ == '__main__':
 	'''
@@ -209,7 +215,13 @@ if __name__ == '__main__':
 	O servidor de desenvolvimento e a depuração deve permanecer desativada em 
 	ambiente de produção, pois permite código arbitrário python a partir do navegador
 	'''
-	app.run(debug=True,host='0.0.0.0')
-	
+	#host='0.0.0.0'
+	app.run(debug=True)
 
-    
+'''
+agoraDataHora = datahora.dataHoraAtual()
+antigaDataHora = agoraDataHora
+while True:
+	if antigaDataHora == agoraDataHora.dataHoraAtual():
+		continue
+	else:'''

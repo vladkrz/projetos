@@ -4,9 +4,14 @@
         <!--Pesquisar como configurar um link css para flask -->
         <title>{% block title %} {% endblock %}</title>
         <style>
-            .msg-register-db{
+            body{
+                margin: 0;
+                padding: 0;
+            }
+            .msg-sistema{
                 color:red;
                 font-weight: bold;
+                font-size: 14px;
             }
             input {
                 text-align: center;
@@ -15,11 +20,12 @@
                 text-align:left;
             }
             ul{
+                font-weight: bold;
                 list-style-type: none;
                 margin:0;
                 padding: 0;
                 overflow: hidden;
-                background-color: rgb(60, 120, 233);
+                background-color: #800606;
                 font-family: Arial, Helvetica, sans-serif;
             }
             li{
@@ -39,61 +45,132 @@
                 padding: 14px 16px;
             }
             li a:hover{
-                background-color: black;
+                background-color: #434343;
+                color: #daa520;
             }
             table, th, td {
                 border: 1px solid black;
                 text-align: center;
+                border-collapse: collapse;
             }
+            th,td{
+                padding: 5px;
+            }
+            tr:hover{
+                background-color: #c7c7c7;
+            }
+            th{
+                background-color: #a12020;
+                color: white;
+            }
+            h2{
+                text-align: center;
+            }
+            input[type="submit"]{
+                border:none;
+                padding: 10px 15px;
+                border-radius: 7px;
+                background-color: #04AA6D;
+                color:white;
+                font-weight: bold;
+                font-size: 16px;
+            }
+            input[type="submit"]:hover{
+                background-color: #45a049;
+            }
+            input[type="text"]{
+                text-align: left;
+                padding:10px 35px;
+                border-radius: 4px;
+                border: 1px solid #ccc;
+                
+            }
+            .title-info h2{
+               
+                padding: 0;
+            }
+            form{
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+                justify-content: space-evenly;
+            }
+
         </style>
     </head>
 <body>
     
-    <navbar>
-            
-            <ul>
-                <li><a href="{{ url_for('index') }}">Inicio</a></li>
-                <li><a href="{{ url_for('consulta') }}">Consultar</a></li>
-                <li><a href="{{ url_for('aluno') }}"> Aluno</a></li>
-                <li><a href="{{ url_for('materia') }}">Matéria</a></li>
-                <li><a href="{{ url_for('notas') }}">Notas</a></li>
-                <li><a href="{{ url_for('logout') }}">Logout</a></li>
-                <li style="float: right;">
-                    <span>
-                        Usuário logado atualmente: {{ session['username'] }}   
-                    </span>
-                </li>
-            </ul>
-    </navbar>
-    
-           
-    <div class="title-consulta">{% block title_painel_consulta %} {% endblock%}</div>
     <div class="title-info">{% block title_painel_index %} {% endblock %}</div>
+    
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('inicio') }}">Inicio</a></li>
+            <li><a href="{{ url_for('consulta') }}">Consultar</a></li>
+            <li><a href="{{ url_for('aluno') }}"> Aluno</a></li>
+            <li><a href="{{ url_for('materia') }}">Matéria</a></li>
+            <li><a href="{{ url_for('notas') }}">Notas</a></li>
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            <li style="float: right;">
+                <span>
+                    {{ sistemaHorario }}
+                    Usuário logado atualmente: {{ session['username'] }} 
+                    
+                </span>
+            </li>
+        </ul>
+    </nav>
+    
+        
+    <!--
+    <div class="title-consulta">{% block title_painel_consulta %} {% endblock%}</div>
     <div class="title-aluno">{% block title_painel_aluno %} {% endblock %}</div>
     <div class="title-materia">{% block title_painel_materia %} {% endblock %}</div>
     <div class="title-notas">{% block title_painel_notas %} {% endblock %}</div>
+    -->
     <center>
-        <hr>
+        <div class="title-consulta-info">
+            {% block title_consulta %} {% endblock %}
+        </div>
+        <div class="title-register-materia">
+            {% block title_register_materia %} {% endblock %}
+        </div>
+        <div class="title-register-aluno">
+            {% block title_register_aluno %} {% endblock %}
+        </div>
+        <div class="title-register-notas">
+            {% block title_register_notas %} {% endblock %}
+        </div>
+        <div class="msg-sistema"> 
+            {{ msg_query }}
+        </div>
     </center>
-    <center>
-        <div class="title-consulta-info">{% block title_consulta %} {% endblock %}
-        <div class="title-register-materia">{% block title_register_materia %} {% endblock %}
-        <div class="title-register-aluno">{% block title_register_aluno %} {% endblock %}</div>
-        <div class="title-register-notas">{% block title_register_notas %} {% endblock %}</div>
-        <div class="msg-register-db"> {{ msg_query }}</div>
-        <div class="form-consulta">{% block form_consulta_aluno %} {% endblock %}
-        <div class="form-register-aluno">{% block form_register %} {% endblock %}</div>
+        <br />
+        <div class="form-consulta">
+            {% block form_consulta_aluno %} {% endblock %}
+        </div>
+        <div class="form-register-aluno">
+            {% block form_register_aluno %} {% endblock %}
+        </div>
         {% if checa_input_cadastro %}
-            <div class="table-checagem-cadastro">{% block checagem_input_cadastro %} {% endblock %}</div>
+            <div class="table-checagem-cadastro">
+                {% block checagem_input_cadastro %} {% endblock %}
+            </div>
         {% endif%}
-        <div class="form-register-materia">{% block form_register_materia %} {% endblock %}</div>
-        <div class="form-register-notas">{% block form_register_notas %} {% endblock %}</div>
+        <div class="form-register-materia">
+            {% block form_register_materia %} {% endblock %}
+        </div>
+        <div class="form-register-notas">
+            {% block form_register_notas %} {% endblock %}
+        </div>
         <br />
         <br />
         {% if consulta_db %}
-            <div class="table-consulta">{% block table_consulta %} {% endblock %}</div>
+            <div class="table-consulta">
+                {% block table_consulta %} {% endblock %}
+            </div>
         {% endif %}        
-    </center>
+   
     <div class="breaker">
         <br />
         <br />
