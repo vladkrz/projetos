@@ -216,7 +216,7 @@ if __name__ == '__main__':
 	ambiente de produção, pois permite código arbitrário python a partir do navegador
 	'''
 	#host='0.0.0.0'
-	app.run(debug=True)
+	app.run(debug=True,host='0.0.0.0')
 
 '''
 agoraDataHora = datahora.dataHoraAtual()
