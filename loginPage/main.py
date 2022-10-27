@@ -217,11 +217,3 @@ if __name__ == '__main__':
 	'''
 	#host='0.0.0.0'
 	app.run(debug=True,host='0.0.0.0')
-
-'''
-agoraDataHora = datahora.dataHoraAtual()
-antigaDataHora = agoraDataHora
-while True:
-	if antigaDataHora == agoraDataHora.dataHoraAtual():
-		continue
-	else:'''

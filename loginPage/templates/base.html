@@ -4,6 +4,28 @@
         <!--Pesquisar como configurar um link css para flask -->
         <title>{% block title %} {% endblock %}</title>
         <style>
+            .msg-register-db{
+                color:red;
+                font-weight: bold;
+            }
+            input {
+                text-align: center;
+            }
+            .title-info{
+                text-align:left;
+            }
+            .menu{
+                text-align:right;
+            }
+            li{
+                display: inline-block;
+                
+            }
+            table, th, td {
+                border: 1px solid black;
+                text-align: center;
+            }
+            
             body{
                 margin: 0;
                 padding: 0;
@@ -11,7 +33,7 @@
             .msg-sistema{
                 color:red;
                 font-weight: bold;
-                font-size: 14px;
+                font-size: 18px;
             }
             input {
                 text-align: center;
@@ -91,11 +113,13 @@
             }
             form{
                 display: flex;
-                flex-direction: column;
-                gap: 10px;
+               
+                gap: 50px;
                 align-items: center;
-                justify-content: space-evenly;
+                flex-direction: column;
+                
             }
+            
 
         </style>
     </head>
@@ -184,7 +208,7 @@
     <div class="footer">
         <footer style="position: fixed; left:2; right: 2; width: 95%; bottom: 0;">
             <center>
-                Este sistema está sendo desenvolvido por Allan(Joxbin)
+                Este sistema está sendo desenvolvido por Allan(JoxPakt)
             </center>
         </footer>
     </div>

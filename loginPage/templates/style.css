@@ -19,3 +19,6 @@ table, th, td {
     border: 1px solid black;
     text-align: center;
 }
+.inputConsulta {
+    justify-content: start;
+}

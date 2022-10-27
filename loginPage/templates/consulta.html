@@ -9,8 +9,23 @@
 
 {% block form_consulta_aluno %}
     <form method="POST">
-        <label><input type="radio" name="opcao" value="consulta_codigo">Código</label>
-        <label><input type="radio" name="opcao" value="consulta_nome">Nome</label>
+        
+        <div class="inputConsulta">
+            <h2>Código</h2>
+            <label><input type="text" name="campoEntrada" placeholder="Digite o código"></label>
+            <h2>Nome</h2>
+            <label><input type="text" name="campoEntrada" placeholder="Digite o nome"></label>
+        </div>
+        <div class="inputSelecao">
+            <!-- 
+                # Notas para se fazer 
+                - Fazer a consulta se ordenar por ordem alfabetica e por codigo ao clicar no inputradio
+                - Permitir consultar mais de 1 nome ou código por vez
+                - Fazer a consulta funcionar pelo inputtext 
+                - Fazer um relógio em tempo real -->
+            <h2>Ordenar por:</h2>
+            <label><input type="radio" name="opcao" value="consulta_codigo">Código</label>
+            <label><input type="radio" name="opcao" value="consulta_nome">Nome</label>
         <label><input type="submit" value="Consultar"></label>
     </form>
 {% endblock%}
